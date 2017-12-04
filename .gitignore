@@ -1,0 +1,13 @@
+build
+target
+.idea
+*.iml
+.DS_Store
+bak
+node_modules
+npm-debug.log
+npm-debug.log*
+.svn
+~*
+.swp
+.vscode

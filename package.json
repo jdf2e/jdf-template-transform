@@ -1,0 +1,31 @@
+{
+  "name": "jdf-template-transform",
+  "version": "1.0.0",
+  "description": "template transform",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jdf2e/jdf-template-transform.git"
+  },
+  "keywords": [
+    "template",
+    "smarty",
+    "velocity"
+  ],
+  "author": "jiadi0801",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jdf2e/jdf-template-transform/issues"
+  },
+  "homepage": "https://github.com/jdf2e/jdf-template-transform#readme",
+  "dependencies": {
+    "velocityjs": "^0.10.1"
+  },
+  "devDependencies": {
+    "expect.js": "^0.3.1",
+    "mocha": "^4.0.1"
+  }
+}
