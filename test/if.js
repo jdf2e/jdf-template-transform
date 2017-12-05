@@ -82,4 +82,17 @@ name="ab"
 {if true}100{/if}{/if}`)
         });
     });
+
+    describe('if elseif else', function () {
+        it(`#if($foo==1) name="ab" #elseif($bar == 2) id="ab" #else class="ab" #end`, function () {
+            let asts = Velocity.parse(`#if($foo==1) name="ab" #elseif($bar == 2) id="ab" #else class="ab" #end`);
+            let result = block.block(asts[0])
+            expect(result).to.equal(`{if $foo==1} name="ab" {elseif $bar==2} id="ab" {else} class="ab" {/if}`)
+        });
+        it(`#if($foo==1) name="ab" #elseif($bar == 2) #if($foo==1) id="ab" #end #else class="ab" #end`, function () {
+            let asts = Velocity.parse(`#if($foo==1) name="ab" #elseif($bar == 2) #if($foo==1) id="ab" #end #else class="ab" #end`);
+            let result = block.block(asts[0])
+            expect(result).to.equal(`{if $foo==1} name="ab" {elseif $bar==2} {if $foo==1} id="ab" {/if} {else} class="ab" {/if}`)
+        });
+    });
 });

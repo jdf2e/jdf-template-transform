@@ -46,6 +46,10 @@ function block(blockArr) {
             else if (node.type === 'else') {
                 resultArr.push("{else}");
             }
+            else if (node.type === 'elseif') {
+                let condition = literal.variable(node.condition);
+                resultArr.push(`{elseif ${condition}}`);
+            }
         }
         else {
             resultArr.push(node);

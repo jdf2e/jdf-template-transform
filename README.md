@@ -19,5 +19,3 @@ velocity模板 转 smarty模板或者trimpath模板
 * null、undefined定义
 * 对象定义（支持对象调用）
 * 宏定义
-
-elseif
