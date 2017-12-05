@@ -1,16 +1,27 @@
 'use strict';
-let fs = require('fs');
-let path = require('path');
-let Velocity = require('velocityjs');
-let c2smarty = require('./c2smarty');
+const Velocity = require('velocityjs')
+const c2smarty = require('./c2smarty');
+const c2trimpath = require('./c2trimpath');
 
-let vm = fs.readFileSync(path.resolve(__dirname, '../test/test.vm')).toString();
-let asts = Velocity.parse(vm);
-
-let smartyStr = c2smarty(asts);
-
-console.log(smartyStr);
-
-
-
-
+exports.c2smarty = function (content) {
+    let asts = Velocity.parse(content);
+    let target = c2smarty.convert(asts);
+    return target;
+}
+exports.c2trimpath = function (content) {
+    let asts = Velocity.parse(content);
+    let target = c2trimpath.convert(asts);
+    return target;
+};
+exports.convert = function (content, type) {
+    type = type || 'smarty';
+    let convert
+    if (type === 'smarty') {
+        convert = c2smarty.convert
+    } else {
+        convert = c2trimpath.convert
+    }
+    let asts = Velocity.parse(content);
+    let target = convert(asts);
+    return target;
+}

@@ -1,0 +1,21 @@
+<div class="content-item">
+    <ul>
+        {for item in [0,1,2,3,4,5]}
+        <li {if item==1} class="quan" {/if}>
+            <a class="shop-url" href="#none" target="_blank"></a>
+            <a class="coupon-url" href="//www.jd.com" target="_blank"></a>
+            <div class="p-wrap">
+                <div class="p-img"><img src="${tab2[item].pic}"></div>
+                <div class="p-detail">
+                    <div class="p-logo"><img data-src="images/100x30.jpg" width="100" height="30"></div>
+                    <div class="p-text">${tab2[item].pText}</div>
+                    <div class="p-status">
+                        <span>{if item==2}50元券 abc {else} 满500-100{/if}</span>
+                        <em>领取</em>
+                    </div>
+                </div>
+            </div>
+        </li>
+        {/for}
+    </ul>
+</div>
