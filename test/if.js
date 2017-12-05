@@ -31,20 +31,55 @@ describe(`条件condition`, function () {
         });
     });
 
-    describe('if嵌套', function () {
+    describe('if嵌套nested', function () {
         it(`#if($foo==1) name="ab" #if($bar == 2) id="ab" #end class="ab" #end`, function () {
             let asts = Velocity.parse(`#if($foo==1) name="ab" #if($bar == 2) id="ab" #end class="ab" #end`);
             let result = block.block(asts[0])
             expect(result).to.equal(`{if $foo==1} name="ab" {if $bar==2} id="ab" {/if} class="ab" {/if}`)
         });
     });
-});
 
-// describe(`循环foreach`, function () {
-//     describe('简单循环', function () {
-//         it(`#foreach ($item in $arr) class="ab" #end`, function () {
-//             let asts = Velocity.parse('#foreach ($item in $arr) class="ab" #end');
-//             console.log(JSON.stringify(asts[0],null,2))
-//         });
-//     });
-// });
+    describe('if+else', function () {
+        it(`#if($foo==1) name="ab" #else 满500-100 #end`, function () {
+            let asts = Velocity.parse(`#if($foo==1) name="ab" #else 满500-100 #end`);
+            let result = block.block(asts[0])
+            expect(result).to.equal(`{if $foo==1} name="ab" {else} 满500-100 {/if}`)
+        });
+        it(`#if($foo==1) name="ab" 
+            #else 满500-100
+            #end`, function () {
+            let asts = Velocity.parse(`#if($foo==1) name="ab" 
+            #else 满500-100
+            #end`);
+            let result = block.block(asts[0])
+            expect(result).to.equal(`{if $foo==1} name="ab" 
+            {else} 满500-100
+            {/if}`)
+        });
+    });
+
+    describe('if+else嵌套nested', function () {
+        it(`#if($foo==1) name="ab" #else 满500-#if(true)100#end #end`, function () {
+            let asts = Velocity.parse(`#if($foo==1) name="ab" #else 满500-#if(true)100#end #end`);
+            let result = block.block(asts[0])
+            expect(result).to.equal(`{if $foo==1} name="ab" {else} 满500-{if true}100{/if} {/if}`)
+        });
+        it(`#if($foo==1)
+name="ab"
+#else
+满500-
+#if(true)100#end
+#end`, function () {
+            let asts = Velocity.parse(`#if($foo==1)
+name="ab"
+#else
+满500-
+#if(true)100#end
+#end`);
+            let result = block.block(asts[0])
+            expect(result).to.equal(`{if $foo==1}name="ab"
+{else}满500-
+{if true}100{/if}{/if}`)
+        });
+    });
+});

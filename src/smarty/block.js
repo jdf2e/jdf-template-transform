@@ -7,13 +7,24 @@ exports.block = block;
 function block(blockArr) {
     let target = blockArr[0];
     let closeTag = '', startTag = '';
+    let to = '';
+    let loop = '';
     if (target.type === 'if') {
         closeTag = '{/if}';
         let condition = literal.variable(target.condition);
         startTag = `{if ${condition}}`;
     }
     else if (target.type === 'foreach') {
-        closeTag = '{/section}'
+        closeTag = '{/foreach}'
+        to = target.to;
+
+        let from = target.from;
+        if (from.type === 'references') {
+            startTag = `{foreach ${literal.variable(from)} as $${to}}`;
+        } 
+        else if (from.type === 'array') {
+            startTag = `{$loopArr=${literal.array(from)}}{foreach $loopArr as $${to}}`
+        }
     }
 
     let others = blockArr.slice(1);
@@ -28,10 +39,19 @@ function block(blockArr) {
         }
         else if (util.isObject(node)) {
             if (node.type === 'references') {
-                resultArr.push(literal.references(node))
+                let smstr = literal.references(node);
+                if (smstr === '{$velocityCount}' || smstr === '{$foreach.count}') {
+                    // 内置变量
+                    resultArr.push(`{$${to}@index}`);
+                } else {
+                    resultArr.push(smstr);
+                }
             }
             else if (node.type === 'set') {
                 resultArr.push(cSet(node));
+            }
+            else if (node.type === 'else') {
+                resultArr.push("{else}");
             }
         }
         else {

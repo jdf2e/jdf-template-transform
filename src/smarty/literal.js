@@ -8,6 +8,11 @@ function integer(obj) {
     return obj.value;
 }
 
+exports.bool = bool;
+function bool(obj) {
+    return obj.value;
+}
+
 /**
  * 字符串，采用单引号包裹
  */
@@ -33,7 +38,18 @@ function map(obj) {
 exports.array = array;
 function array(obj) {
     let arr = [];
-    obj.value.forEach(item => {
+    let values = [];
+    if (obj.isRange) {
+        for (var i = Number(obj.value[0]); i <= Number(obj.value[1]); i++) {
+            values.push({
+                type: 'integer',
+                value: i
+            });
+        }
+    } else {
+        values = obj.value;
+    }
+    values.forEach(item => {
         let result = variable(item)
         if (item.type === 'references') {
             result = "{"+ result +"}"
@@ -53,7 +69,7 @@ function math(obj) {
     else if (obj.operator === 'not') {
         return "!" + variable(left);
     } 
-    else if (['+','-','*','/','>','<','>=','<=','==','!='].indexOf(obj.operator) !== -1) {
+    else if (['+','-','*','/','%', '>','<','>=','<=','==','!=','&&','||'].indexOf(obj.operator) !== -1) {
         return variable(left) + obj.operator + variable(right);
     }
 }
@@ -108,6 +124,9 @@ function variable(varObj) {
     if (varObj.type === 'integer') {
         result = integer(varObj);
     }
+    else if (varObj.type === 'bool') {
+        result = bool(varObj);
+    }
     else if (varObj.type === 'string') {
         result = string(varObj);
     }
@@ -125,7 +144,7 @@ function variable(varObj) {
         result = math(varObj);
     }
     else {
-        result = varObj.value.toString();
+        result = varObj.value;
     }
     return result;
 }

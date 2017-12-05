@@ -100,10 +100,25 @@ describe(`赋值`, function () {
     });
 
     describe('表达式expression', function () {
+        it(`#set($foo = 1%1) -> {$foo=1%1}`, function () {
+            let asts = Velocity.parse(`#set($foo = 1%1)`);
+            let result = cSet(asts[0]);
+            expect(result).to.equal(`{$foo=1%1}`)
+        });
         it(`#set($foo = 1+1) -> {$foo=1+1}`, function () {
             let asts = Velocity.parse(`#set($foo = 1+1)`);
             let result = cSet(asts[0]);
             expect(result).to.equal(`{$foo=1+1}`)
+        });
+        it(`#set($foo = 1*1) -> {$foo=1*1}`, function () {
+            let asts = Velocity.parse(`#set($foo = 1*1)`);
+            let result = cSet(asts[0]);
+            expect(result).to.equal(`{$foo=1*1}`)
+        });
+        it(`#set($foo = 1/1) -> {$foo=1/1}`, function () {
+            let asts = Velocity.parse(`#set($foo = 1/1)`);
+            let result = cSet(asts[0]);
+            expect(result).to.equal(`{$foo=1/1}`)
         });
         it(`#set($foo = "a"+"bb") -> {$foo='a'+'bb'}`, function () {
             let asts = Velocity.parse(`#set($foo = "a"+"bb")`);
@@ -130,6 +145,16 @@ describe(`赋值`, function () {
     });
 
     describe('比较表达式compare', function () {
+        it(`#set($foo = 2 gt 1) -> {$foo=2>1}`, function () {
+            let asts = Velocity.parse(`#set($foo = 2 gt 1)`);
+            let result = cSet(asts[0]);
+            expect(result).to.equal(`{$foo=2>1}`)
+        });
+        it(`#set($foo = 2 eq 1) -> {$foo=2==1}`, function () {
+            let asts = Velocity.parse(`#set($foo = 2 eq 1)`);
+            let result = cSet(asts[0]);
+            expect(result).to.equal(`{$foo=2==1}`)
+        });
         it(`#set($foo = 2>1) -> {$foo=2>1}`, function () {
             let asts = Velocity.parse(`#set($foo = 2>1)`);
             let result = cSet(asts[0]);
@@ -188,7 +213,28 @@ describe(`赋值`, function () {
             let result = cSet(asts[0]);
             expect(result).to.equal(`{$foo=$foo>=(5-1)}`)
         });
+
+        
     });
+
+    describe(`门运算`, function () {
+        it(`#set($foo = $a && $b) -> {$foo=$a&&$b}`, function () {
+            let asts = Velocity.parse(`#set($foo = $a && $b)`);
+            let result = cSet(asts[0]);
+            expect(result).to.equal(`{$foo=$a&&$b}`)
+        });
+        it(`#set($foo = $a || $b) -> {$foo=$a||$b}`, function () {
+            let asts = Velocity.parse(`#set($foo = $a || $b)`);
+            let result = cSet(asts[0]);
+            expect(result).to.equal(`{$foo=$a||$b}`)
+        });
+
+        it(`#set($foo = 1 && ($a || $b)) -> {$foo=1&&($a||$b)}`, function () {
+            let asts = Velocity.parse(`#set($foo = 1 && ($a || $b))`);
+            let result = cSet(asts[0]);
+            expect(result).to.equal(`{$foo=1&&($a||$b)}`)
+        });
+    })
 
     describe('三目比较表达式', function () {
         it('velocity不支持三目运算符', ()=>{});
