@@ -1,7 +1,7 @@
 'use strict';
 
-// require('./variable');
-// require('./set');
+require('./variable');
+require('./set');
 require('./if');
-// require('./foreach');
+require('./foreach');
 
