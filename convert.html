@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>JSON - YAML converter</title>
+    <link rel="stylesheet" type="text/css" href="//misc.360buyimg.com/jdf/1.0.0/unit/ui-base/1.0.0/ui-base.css" media="all"/>
+    <script type="text/javascript" src="https://rawgit.com/jdf2e/jdf-template-transform/master/dist/c2tpl.js"></script>
+    
+    <style>
+        .wrapper {
+            width: 1100px;
+            margin: 0 auto;
+        }
+        .data-area textarea {
+            width: 500px;
+            height: 500px;
+            overflow: auto;
+        }
+        .conv {
+            display: flex;
+            flex-direction: column; 
+            justify-content: center;
+            width: 80px;
+            height: 500px;
+            text-align: center;
+            line-height: 500px;
+        }
+        .conv button {
+            margin-top: 10px;
+        }
+        h1 {
+            height: 56px;
+            line-height: 56px;
+        }
+        .link {
+            font-size: 15px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="wrapper clearfix">
+    <h1>模板转换</h1>
+    <div class="link">
+        <a href="https://github.com/jdf2e/jdf-template-transform">返回GitHub</a><br/>
+        <a href="https://github.com/jdf2e/jdf-template-transform/issues">提bug</a><br/>
+        <a href="https://github.com/jdf2e/jdf-template-transform/blob/master/README.md">支持的特性列表</a>
+    </div>
+    <div class="data-area fl">
+        <h3>velocity</h3>
+        <textarea id="vm"></textarea> 
+    </div>
+    <div class="conv fl">
+        <button onclick="tosmarty()">smarty&gt;</button>
+        <button onclick="totrimpath()">trimpath&gt;</button>
+    </div>
+    <div class="data-area fl">
+        <h3>smarty or trimpath</h3>
+        <textarea id="target"></textarea> 
+    </div>
+</div>
+
+<script type="text/javascript">
+    function to2(type) {
+        var content = document.querySelector('#vm').value;
+        var result = C2tpl.convert(content, type);
+        document.querySelector('#target').value = result;
+    }
+    function tosmarty() {
+        to2('smarty');
+    }
+    function totrimpath() {
+        to2('trimpath');
+    }
+</script>
+</body>
+
+</html>
