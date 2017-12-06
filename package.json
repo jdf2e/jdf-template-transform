@@ -2,7 +2,7 @@
   "name": "jdf-template-transform",
   "version": "1.0.0",
   "description": "template transform",
-  "main": "index.js",
+  "main": "./dist/c2tpl.js",
   "scripts": {
     "build": "webpack --progress --hide-modules",
     "test": "mocha test/index.js"
@@ -22,10 +22,8 @@
     "url": "https://github.com/jdf2e/jdf-template-transform/issues"
   },
   "homepage": "https://github.com/jdf2e/jdf-template-transform#readme",
-  "dependencies": {
-    "velocityjs": "^0.10.1"
-  },
   "devDependencies": {
+    "velocityjs": "^0.10.1",
     "expect.js": "^0.3.1",
     "mocha": "^4.0.1",
     "webpack": "^3.10.0"
