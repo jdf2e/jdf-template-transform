@@ -3,6 +3,21 @@ velocity template transform to smarty or trimpath template
 
 velocity模板 转 smarty模板或者trimpath模板
 
+## 安装
+```
+npm install jdf-template-transform --save
+```
+
+## api
+```
+const c2tpl = require('jdf-template-transform');
+let content = '<div>$foo</div>'
+
+c2tpl.convert(content); // <div>{$foo}</div>
+c2tpl.convert(content, 'trimpath'); // <div>${foo}</div>
+
+```
+
 ## 转换的特性有：
 * 变量：支持纯变量，点连接，方括号连接，变量嵌套
 * 赋值：支持数字，字符串，数组，变量、比较表达式等赋值方式
@@ -19,3 +34,4 @@ velocity模板 转 smarty模板或者trimpath模板
 * null、undefined定义
 * 对象定义（支持对象调用）
 * 宏定义
+

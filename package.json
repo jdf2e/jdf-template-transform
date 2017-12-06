@@ -1,6 +1,6 @@
 {
   "name": "jdf-template-transform",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "template transform",
   "main": "./dist/c2tpl.js",
   "scripts": {

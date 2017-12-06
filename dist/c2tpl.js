@@ -3553,7 +3553,7 @@ function block(blockArr) {
         else if (util.isObject(node)) {
             if (node.type === 'references') {
                 let smstr = literal.references(node);
-                if (smstr === '{$velocityCount}' || smstr === '{$foreach.count}') {
+                if (smstr === '${velocityCount}' || smstr === '${foreach.count}') {
                     // 内置变量
                     resultArr.push(`\${${to}_index}`);
                 } else {
